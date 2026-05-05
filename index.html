@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍽️ Vencher Food Store - Delicious Food, Delivered Fast!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #FFF8F0 0%, #FFF2E8 100%);
+            color: #3D1C02;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 248, 240, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(255, 107, 53, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FF6B35, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #3D1C02;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #FF6B35;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(135deg, #FF6B35, #FFD700);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cart-btn {
+            position: relative;
+            background: linear-gradient(135deg, #FF6B35, #FFD700);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #C1121F;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-btn {
+            background: transparent;
+            border: 2px solid #FF6B35;
+            color: #FF6B35;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .auth-btn:hover {
+            background: #FF6B35;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .user-profile {
+            background: linear-gradient(135deg, #FF6B35, #FFD700);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            height: 90vh;
+            background: linear-gradient(135deg, 
+                rgba(255, 107, 53, 0.9) 0%, 
+                rgba(255, 215, 0, 0.8) 50%,
+                rgba(193, 18, 31, 0.9) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '🍕🍔🍜🍗🍰🥗';
+            position: absolute;
+            font-size: 4rem;
+            animation: float 20s infinite linear;
+            top: 20%;
+            left: -20%;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-100%) translateY(0); }
+            100% { transform: translateX(100vw) translateY(50px); }
+        }
+
+        .hero-content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            margin-bottom: 2rem;
+            animation: slideInUp 1s ease-out 0.2s both;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, #FFD700, #FF6B35);
+            color: #3D1C02;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
+            animation: slideInUp 1s ease-out 0.4s both;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.6);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #FF6B35, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Categories */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .category-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 3px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(255, 107, 53, 0.3);
+            border-color: #FF6B35;
+        }
+
+        .category-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FF6B35, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .category-card.active {
+            background: linear-gradient(135deg, #FF6B35, #FFD700);
+            color: white;
+        }
+
+        /* Menu Items */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .food-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .food-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(255, 107, 53, 0.3);
+        }
+
+        .food-image {
+            height: 200px;
+            background: linear-gradient(135deg, #FF6B35, #FFD700);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .food-info {
+            padding: 1.5rem;
+        }
+
+        .food-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .food-desc {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .food-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #C1121F;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+
+        .add-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FF6B35, #FFD700);
+            color: #3D1C02;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 30px rgba(0,0,0,0.2);
+            transition: right 0.3s ease;
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .cart-modal.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 2rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #FF6B35;
+        }
+
+        .cart-item {
+            display: flex;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #eee;
+            gap: 1rem;
+        }
+
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #FF6B35, #FFD700);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .cart-item-info h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #FF6B35;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-total {
+            padding: 2rem;
+            border-top: 3px solid #FF6B35;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .grand-total {
+            font-size: 1.5rem;
+            color: #C1121F;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FF6B35, #C1121F);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        /* Auth Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .auth-modal {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            background: none;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: #FF6B35;
+            border-bottom: 3px solid #FF6B35;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #FF6B35;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FF6B35, #FFD700);
+            color: #3D1C02;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #FF6B35, #FFD700);
+            color: #3D1C02;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 3000;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        /* About & Contact */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .contact-item i {
+            font-size: 2.5rem;
+            color: #FF6B35;
+            min-width: 50px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #3D1C02;
+            color: white;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #FFD700;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #FFD700;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #FF6B35;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #666;
+            padding-top: 2rem;
+            color: #ccc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 3%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .cart-modal {
+                width: 100%;
+            }
+
+            section {
+                padding: 80px 3%;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .categories {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none !important;
+        }
+
+        .empty-cart {
+            padding: 2rem;
+            text-align: center;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">🍽️ Vencher Food Store</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="cart-btn" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+            <div id="userAuth">
+                <button class="auth-btn" onclick="openAuthModal()">Login</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Delicious Food,<br>Delivered Fast! 🚀</h1>
+            <p>Order from your favorite restaurants with just a few taps</p>
+            <button class="cta-btn" onclick="scrollToMenu()">Order Now 🍕</button>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="menu" class="categories-section">
+        <h2>🍽️ Choose Your Craving</h2>
+        <div class="categories" id="categories">
+            <!-- Categories will be populated by JS -->
+        </div>
+
+        <!-- Menu Items -->
+        <h2 style="margin-top: 4rem;">Our Delicious Menu</h2>
+        <div class="menu-grid" id="menuGrid">
+            <!-- Menu items will be populated by JS -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>👨‍🍳 About Vencher</h2>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Lightning Fast Delivery</h3>
+                <p>Get your food delivered in under 30 minutes! Our efficient delivery network ensures your food arrives hot and fresh.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🥦</div>
+                <h3>100% Fresh Ingredients</h3>
+                <p>Only the finest, freshest ingredients are used in our kitchens. We partner with local farmers for the best produce.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👨‍🍳</div>
+                <h3>Expert Chefs</h3>
+                <p>Our team of professional chefs craft every meal with care and precision. Quality is our top priority.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3>24/7 Support</h3>
+                <p>Our customer support team is always available to help with any questions or concerns you may have.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3>Secure Payment</h3>
+                <p>Multiple payment options and secure checkout process to keep your transactions safe.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎁</div>
+                <h3>Exclusive Deals</h3>
+                <p>Special discounts and loyalty rewards for our valued customers. Join today and start saving!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>📞 Get In Touch</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h4>Address</h4>
+                    <p>123 Food Street, Culinary City, CC 12345</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                    <h4>Phone</h4>
+                    <p>+1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <h4>Email</h4>
+                    <p>hello@vencher.com</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <h4>Hours</h4>
+                    <p>Mon-Sun: 10AM - 11PM</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>🍽️ Vencher</h3>
+                <p>Your go-to destination for delicious food delivered fast!</p>
+                <div class="social-links">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Policies</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Download App</h3>
+                <p>Get the Vencher app for exclusive deals and easy ordering!</p>
+                <div style="margin-top: 1rem;">
+                    <button style="background: #FF6B35; color: white; border: none; padding: 0.8rem 1.2rem; border-radius: 10px; cursor: pointer; margin-right: 0.5rem;">
+                        <i class="fab fa-apple"></i> App Store
+                    </button>
+                    <button style="background: #FFD700; color: #3D1C02; border: none; padding: 0.8rem 1.2rem; border-radius: 10px; cursor: pointer;">
+                        <i class="fab fa-google-play"></i> Play Store
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Vencher Food Store. All rights reserved. | Designed with ❤️ by Vencher Team</p>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="close-cart" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="cartItems">
+            <div class="empty-cart">Your cart is empty</div>
+        </div>
+        <div class="cart-total" id="cartTotalSection" style="display: none;">
+            <div class="total-row">
+                <span>Subtotal:</span>
+                <span id="subtotal">$0.00</span>
+            </div>
+            <div class="total-row">
+                <span>Delivery:</span>
+                <span>$2.99</span>
+            </div>
+            <div class="total-row grand-total">
+                <span>Total:</span>
+                <span id="grandTotal">$2.99</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="auth-modal">
+            <div class="modal-tabs">
+                <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+                <button class="tab-btn" onclick="switchTab('signup')">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+
+            <!-- Sign Up Form -->
+            <form id="signupForm" style="display: none;" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" required placeholder="Create a strong password">
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" required placeholder="(555) 123-4567">
+                </div>
+                <button type="submit" class="submit-btn">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Menu Data
+        const menuData = {
+            pizza: [
+                { id: 1, name: 'Margherita Pizza', desc: 'Fresh basil, mozzarella, tomato sauce', price: 12.99, emoji: '🍕', rating: '⭐⭐⭐⭐⭐' },
+                { id: 2, name: 'Pepperoni Pizza', desc: 'Classic pepperoni with extra cheese', price: 13.99, emoji: '🍕', rating: '⭐⭐⭐⭐⭐' },
+                { id: 3, name: 'Veggie Supreme', desc: 'Loaded with fresh vegetables', price: 11.99, emoji: '🍕', rating: '⭐⭐⭐⭐' }
+            ],
+            burgers: [
+                { id: 4, name: 'Classic Cheeseburger', desc: 'Juicy beef patty with cheddar', price: 9.99, emoji: '🍔', rating: '⭐⭐⭐⭐⭐' },
+                { id: 5, name: 'Bacon BBQ Burger', desc: 'Smoky BBQ sauce with crispy bacon', price: 10.99, emoji: '🍔', rating: '⭐⭐⭐⭐⭐' },
+                { id: 6, name: 'Veggie Burger', desc: 'Plant-based patty, delicious & healthy', price: 8.99, emoji: '🍔', rating: '⭐⭐⭐⭐' }
+            ],
+            noodles: [
+                { id: 7, name: 'Pad Thai', desc: 'Traditional Thai stir-fried noodles', price: 10.99, emoji: '🍜', rating: '⭐⭐⭐⭐⭐' },
+                { id: 8, name: 'Ramen Bowl', desc: 'Authentic Japanese ramen with broth', price: 11.99, emoji: '🍜', rating: '⭐⭐⭐⭐⭐' },
+                { id: 9, name: 'Lo Mein', desc: 'Crispy noodles with vegetables', price: 9.99, emoji: '🍜', rating: '⭐⭐⭐⭐' }
+            ],
+            chicken: [
+                { id: 10, name: 'Fried Chicken', desc: 'Golden crispy fried chicken', price: 11.99, emoji: '🍗', rating: '⭐⭐⭐⭐⭐' },
+                { id: 11, name: 'Grilled Chicken', desc: 'Healthy grilled chicken breast', price: 12.99, emoji: '🍗', rating: '⭐⭐⭐⭐' },
+                { id: 12, name: 'Spicy Wings', desc: 'Buffalo wings with hot sauce', price: 10.99, emoji: '🍗', rating: '⭐⭐⭐⭐⭐' }
+            ],
+            desserts: [
+                { id: 13, name: 'Chocolate Cake', desc: 'Rich chocolate layer cake', price: 7.99, emoji: '🍰', rating: '⭐⭐⭐⭐⭐' },
+                { id: 14, name: 'Ice Cream Sundae', desc: 'Vanilla ice cream with toppings', price: 6.99, emoji: '🍰', rating: '⭐⭐⭐⭐⭐' },
+                { id: 15, name: 'Cheesecake', desc: 'Classic New York cheesecake', price: 8.99, emoji: '🍰', rating: '⭐⭐⭐⭐' }
+            ]
+        };
+
+        let cart = [];
+        let currentUser = null;
+
+        // Initialize
+        function init() {
+            renderCategories();
+            renderMenu('pizza');
+        }
+
+        // Render Categories
+        function renderCategories() {
+            const categoriesDiv = document.getElementById('categories');
+            categoriesDiv.innerHTML = '';
+            
+            Object.keys(menuData).forEach(category => {
+                const card = document.createElement('div');
+                card.className = 'category-card active';
+                card.innerHTML = `
+                    <i class="fas fa-${getCategoryIcon(category)}"></i>
+                    <h3>${capitalize(category)}</h3>
+                `;
+                card.onclick = () => renderMenu(category);
+                categoriesDiv.appendChild(card);
+            });
+        }
+
+        // Render Menu
+        function renderMenu(category) {
+            const menuGrid = document.getElementById('menuGrid');
+            menuGrid.innerHTML = '';
+            
+            menuData[category].forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'food-card';
+                card.innerHTML = `
+                    <div class="food-image">${item.emoji}</div>
+                    <div class="food-info">
+                        <div class="food-name">${item.name}</div>
+                        <div class="food-desc">${item.desc}</div>
+                        <div class="stars">${item.rating}</div>
+                        <div class="food-price">$${item.price}</div>
+                        <button class="add-btn" onclick="addToCart(${item.id}, '${item.name}', ${item.price}, '${item.emoji}')">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                `;
+                menuGrid.appendChild(card);
+            });
+        }
+
+        // Add to Cart
+        function addToCart(id, name, price, emoji) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ id, name, price, emoji, quantity: 1 });
+            }
+            
+            updateCart();
+            showToast(`${name} added to cart!`);
+        }
+
+        // Update Cart
+        function updateCart() {
+            document.getElementById('cartCount').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            renderCartItems();
+        }
+
+        // Render Cart Items
+        function renderCartItems() {
+            const cartItemsDiv = document.getElementById('cartItems');
+            const cartTotalSection = document.getElementById('cartTotalSection');
+            
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+                cartTotalSection.style.display = 'none';
+                return;
+            }
+            
+            cartItemsDiv.innerHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'cart-item';
+                itemDiv.innerHTML = `
+                    <div class="cart-item-image">${item.emoji}</div>
+                    <div class="cart-item-info" style="flex: 1;">
+                        <h4>${item.name}</h4>
+                        <p>$${item.price}</p>
+                        <div class="quantity-controls">
+                            <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                            <button class="qty-btn" onclick="removeFromCart(${item.id})" style="background: #C1121F; color: white;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <strong>$${itemTotal.toFixed(2)}</strong>
+                    </div>
+                `;
+                cartItemsDiv.appendChild(itemDiv);
+            });
+            
+            const total = subtotal + 2.99;
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('grandTotal').textContent = `$${total.toFixed(2)}`;
+            cartTotalSection.style.display = 'block';
+        }
+
+        // Update Quantity
+        function updateQuantity(id, change) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(id);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+
+        // Remove from Cart
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        }
+
+        // Toggle Cart
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('active');
+        }
+
+        // Auth Functions
+        function openAuthModal() {
+            if (currentUser) {
+                logout();
+            } else {
+                document.getElementById('authModal').classList.add('active');
+            }
+        }
+
+        function switchTab(tab) {
+            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+            document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
+            
+            document.querySelectorAll('.tab-btn').forEach((btn, index) => {
+                btn.classList.remove('active');
+                if ((tab === 'login' && index === 0) || (tab === 'signup' && index === 1)) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = e.target[0].value;
+            currentUser = { email, name: email.split('@')[0] };
+            updateUserAuth();
+            document.getElementById('authModal').classList.remove('active');
+            showToast(`Welcome back, ${currentUser.name}!`);
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            const name = e.target[0].value;
+            const email = e.target[1].value;
+            currentUser = { name, email };
+            updateUserAuth();
+            document.getElementById('authModal').classList.remove('active');
+            showToast(`Welcome to Vencher, ${name}!`);
+        }
+
+        function logout() {
+            currentUser = null;
+            updateUserAuth();
+            showToast('You have been logged out');
+        }
+
+        function updateUserAuth() {
+            const userAuthDiv = document.getElementById('userAuth');
+            if (currentUser) {
+                userAuthDiv.innerHTML = `
+                    <div class="user-profile" onclick="logout()">
+                        <i class="fas fa-user-circle"></i> ${currentUser.name}
+                    </div>
+                `;
+            } else {
+                userAuthDiv.innerHTML = '<button class="auth-btn" onclick="openAuthModal()">Login</button>';
+            }
+        }
+
+        // Checkout
+        function checkout() {
+            if (!currentUser) {
+                showToast('Please login to checkout');
+                openAuthModal();
+                return;
+            }
+            
+            showToast('Order placed successfully! Your food will arrive in 30 minutes.');
+            cart = [];
+            updateCart();
+            toggleCart();
+        }
+
+        // Scroll to Menu
+        function scrollToMenu() {
+            document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Show Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Utility Functions
+        function getCategoryIcon(category) {
+            const icons = {
+                pizza: 'pizza-slice',
+                burgers: 'hamburger',
+                noodles: 'bowl',
+                chicken: 'drumstick-bite',
+                desserts: 'birthday-cake'
+            };
+            return icons[category] || 'utensils';
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
